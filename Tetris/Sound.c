@@ -1,5 +1,11 @@
 #include "Tetris.h"
 
+Music background_music;
+Sound collision_sound;
+Sound rotate_sound;
+Sound line_effect_sound;
+Sound game_over_sound;
+
 Music Add_music(const char* file_path, const int loop, const float volume_value)
 {
     Music music = LoadMusicStream(file_path);
@@ -24,4 +30,5 @@ void Init_Sounds()
     collision_sound = Add_sound(COLLISION_SOUND_PATH, COLLISION_SOUND_VOLUME);
     rotate_sound = Add_sound(ROTATE_SOUND_PATH, ROTATE_SOUND_VOLUME);
     line_effect_sound = Add_sound(LINE_SOUND_PATH, LINE_SOUND_VOLUME);
+    game_over_sound = Add_sound(GAME_OVER_SOUND_PATH, GAME_OVER_SOUND_VOLUME);
 }

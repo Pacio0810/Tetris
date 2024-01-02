@@ -14,6 +14,7 @@
 
 #define THRESHOLD_VALUE 400
 
+// define for Path and Volume value
 #define BACKGROUND_MUSIC_PATH "Sound/Tetris_SoundTrack.mp3"
 #define BACKGROUND_MUSIC_VOLUME 0.2f
 #define COLLISION_SOUND_PATH "Sound/Collision_sound.wav"
@@ -22,16 +23,21 @@
 #define ROTATE_SOUND_VOLUME 1
 #define LINE_SOUND_PATH "Sound/Lines_effect_sound.mp3"
 #define LINE_SOUND_VOLUME 1
+#define GAME_OVER_SOUND_PATH "Sound/Game_over_sound.mp3"
+#define GAME_OVER_SOUND_VOLUME 1
 
 #define POINTS_FOR_LINE 100
 
 extern const int *tetrominoTypes[7][4];
 extern int stage[];
 extern Color colorTypes[8];
+
+// extern music & sound variables
 extern Music background_music;
 extern Sound collision_sound;
 extern Sound rotate_sound;
 extern Sound line_effect_sound;
+extern Sound game_over_sound;
 
 #pragma region Movement
 int CheckCollision(const int tetrominoStartX, const int tetrominoStartY, const int *tetromino);
