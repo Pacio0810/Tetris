@@ -405,7 +405,11 @@ int main(int argc, char** argv)
             {
                 //resetGame
                 ResetGame();
-            }   
+            }
+            else if (IsKeyPressed(KEY_ESCAPE))
+            {
+                Close_functions();
+            }
         }
         else
         {
@@ -430,7 +434,7 @@ int main(int argc, char** argv)
         {
             // Game Over scene
             DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
-            DrawText("Press ENTER to restart..", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
+            DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
         }
         else
         {
