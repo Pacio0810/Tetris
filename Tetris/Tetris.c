@@ -323,29 +323,29 @@ void ResetGame()
 void DrawAll(const int startOffsetX, const int startOffsetY)
 {
     BeginDrawing();
-        ClearBackground(GRAY);
+    ClearBackground(GRAY);
 
-        if (gameover == 0)
-        {
-            // Game Loop scene
-            DrawTextEx(font, TextFormat("Score : \n %06i", score), Score_position,font.baseSize, 4, BLACK);
-            drawTetromino(colorTypes[Current_color],startOffsetX, startOffsetY, Current_tetromino_X, Current_tetromino_Y, tetrominoTypes[Current_tetromino_type][Current_rotation]);
-            Draw_wall_and_grill(startOffsetX,startOffsetY);
-        }
-        else if (gameover == 1)
-        {
-            // Game Over scene
-            DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
-            DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
-        }
-        else
-        {
-            // Start Game scene
-            DrawText("TETRIS", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,130,BLACK);
-            DrawText("Press ENTER to start the game", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 + 200,35,BLACK);
-        }
-        
-        EndDrawing();
+    if (gameover == 0)
+    {
+        // Game Loop scene
+        DrawTextEx(font, TextFormat("Score : \n %06i", score), Score_position,font.baseSize, 4, BLACK);
+        drawTetromino(colorTypes[Current_color],startOffsetX, startOffsetY, Current_tetromino_X, Current_tetromino_Y, tetrominoTypes[Current_tetromino_type][Current_rotation]);
+        Draw_wall_and_grill(startOffsetX,startOffsetY);
+    }
+    else if (gameover == 1)
+    {
+        // Game Over scene
+        DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
+        DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
+    }
+    else
+    {
+        // Start Game scene
+        DrawText("TETRIS", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,130,BLACK);
+        DrawText("Press ENTER to start the game", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 + 200,35,BLACK);
+    }
+    
+    EndDrawing();
 }
 
 int main(int argc, char** argv)
