@@ -17,6 +17,10 @@ int Current_rotation = 0;
 float Tetromino_timer = 1;
 float Tetromino_down_timer;
 int Current_color;
+
+// Font info
+Font font;
+Vector2 Score_position;
     
 time_t Unix_time;
 
@@ -316,6 +320,34 @@ void ResetGame()
     }
 }
 
+void DrawAll(const int startOffsetX, const int startOffsetY)
+{
+    BeginDrawing();
+        ClearBackground(GRAY);
+
+        if (gameover == 0)
+        {
+            // Game Loop scene
+            DrawTextEx(font, TextFormat("Score : \n %06i", score), Score_position,font.baseSize, 4, BLACK);
+            drawTetromino(colorTypes[Current_color],startOffsetX, startOffsetY, Current_tetromino_X, Current_tetromino_Y, tetrominoTypes[Current_tetromino_type][Current_rotation]);
+            Draw_wall_and_grill(startOffsetX,startOffsetY);
+        }
+        else if (gameover == 1)
+        {
+            // Game Over scene
+            DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
+            DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
+        }
+        else
+        {
+            // Start Game scene
+            DrawText("TETRIS", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,130,BLACK);
+            DrawText("Press ENTER to start the game", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 + 200,35,BLACK);
+        }
+        
+        EndDrawing();
+}
+
 int main(int argc, char** argv)
 {
     #pragma region Init_Functions_And_Variables
@@ -326,8 +358,9 @@ int main(int argc, char** argv)
     const int startOffsetY = (WINDOWHEIGHT / 2) - ((STAGE_HEIGHT * TILE_SIZE) / 2);
     
     // Initialize font and position
-    Font font = LoadFont("Font/Tetris_font.ttf");                                   
-    Vector2 Score_position = {startOffsetX + WINDOWWIDTH / 2, tetrominoStartY + 200};   
+    font = LoadFont("Font/Tetris_font.ttf");                                   
+    Score_position.x = startOffsetX + WINDOWWIDTH / 2;
+    Score_position.y = tetrominoStartY + 200;   
 
     // Initialize Random value
     time(&Unix_time);
@@ -418,33 +451,8 @@ int main(int argc, char** argv)
                 gameover = 0;
             } 
         }
-        
-        #pragma region Draw
-        BeginDrawing();
-        ClearBackground(GRAY);
 
-        if (gameover == 0)
-        {
-            // Game Loop scene
-            DrawTextEx(font, TextFormat("Score : \n %06i", score), Score_position,font.baseSize, 4, BLACK);
-            drawTetromino(colorTypes[Current_color],startOffsetX, startOffsetY, Current_tetromino_X, Current_tetromino_Y, tetrominoTypes[Current_tetromino_type][Current_rotation]);
-            Draw_wall_and_grill(startOffsetX,startOffsetY);
-        }
-        else if (gameover == 1)
-        {
-            // Game Over scene
-            DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
-            DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
-        }
-        else
-        {
-            // Start Game scene
-            DrawText("TETRIS", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,130,BLACK);
-            DrawText("Press ENTER to start the game", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 + 200,35,BLACK);
-        }
-        
-        EndDrawing();
-        #pragma endregion Draw
+        DrawAll(startOffsetX,startOffsetY);
     }
 
     Close_functions();
