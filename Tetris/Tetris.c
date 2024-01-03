@@ -301,10 +301,12 @@ void ResetVariables()
 
 void ResetGame()
 {
+    // reset variables
     score = 0;
     gameover = 0;
     Tetromino_down_timer = Tetromino_timer;
 
+    // reset the stage for new game
     for(int y = 1; y < STAGE_HEIGHT - 1; y++)
     {
         for(int x = 1; x < STAGE_WIDTH -1; x++)
@@ -441,10 +443,11 @@ int main(int argc, char** argv)
             }
             else if (IsKeyPressed(KEY_ESCAPE))
             {
+                // Close Window
                 Close_functions();
             }
         }
-        else
+        else // we are in start menu
         {
             if (IsKeyPressed(KEY_ENTER))
             {
