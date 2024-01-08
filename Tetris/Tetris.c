@@ -21,6 +21,10 @@ int Current_color;
 // Font info
 Font font;
 Vector2 Score_position;
+Vector2 Game_over_position;
+Vector2 Bottom_txt_position;
+int linetxt = 0;
+int changeColor = 0;
     
 time_t Unix_time;
 
@@ -275,6 +279,7 @@ const int *tetrominoTypes[7][4] =
     {lTetromino0, lTetromino90, lTetromino180, lTetromino270},
 };
 
+
 #pragma endregion Init_Stage_And_Tetro
 
 void Init_functions()
@@ -333,18 +338,31 @@ void DrawAll(const int startOffsetX, const int startOffsetY)
         DrawTextEx(font, TextFormat("Score : \n %06i", score), Score_position,font.baseSize, 4, BLACK);
         drawTetromino(colorTypes[Current_color],startOffsetX, startOffsetY, Current_tetromino_X, Current_tetromino_Y, tetrominoTypes[Current_tetromino_type][Current_rotation]);
         Draw_wall_and_grill(startOffsetX,startOffsetY);
+        if (linetxt != 0)
+        {
+            Color color = BLACK;
+            
+            changeColor = (changeColor==0) ? 1 : 0;
+
+            if (changeColor != 0)
+            {
+                color = WHITE;
+            }
+            
+            DrawText("LINE COMPLETED !!", WINDOWWIDTH /2 - 200, WINDOWHEIGHT/2 + 280,40,color);
+        }
     }
     else if (gameover == 1)
     {
         // Game Over scene
-        DrawText("GAME OVER", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,90,BLACK);
-        DrawText("Press ENTER to restart \nor ESC for quit", WINDOWWIDTH /2 - 250, WINDOWHEIGHT/2 + 200,40,BLACK);
+        DrawTextEx(font,"GAME OVER", Game_over_position,font.baseSize * 2.5f, 4, BLACK);
+        DrawTextEx(font,"Press ENTER to restart \nor ESC for quit", Bottom_txt_position,font.baseSize, 4, BLACK);
     }
     else
     {
         // Start Game scene
-        DrawText("TETRIS", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 - 100,130,BLACK);
-        DrawText("Press ENTER to start the game", WINDOWWIDTH /2 - 275, WINDOWHEIGHT/2 + 200,35,BLACK);
+        DrawTextEx(font,"TETRIS", Game_over_position,font.baseSize * 4, 4, BLACK);
+        DrawTextEx(font,"Press ENTER \nto start the game", Bottom_txt_position,font.baseSize, 4, BLACK);
     }
     
     EndDrawing();
@@ -362,7 +380,11 @@ int main(int argc, char** argv)
     // Initialize font and position
     font = LoadFont("Font/Tetris_font.ttf");                                   
     Score_position.x = startOffsetX + WINDOWWIDTH / 2;
-    Score_position.y = tetrominoStartY + 200;   
+    Score_position.y = tetrominoStartY + 200;
+    Game_over_position.x = WINDOWWIDTH /2 - 275;
+    Game_over_position.y = WINDOWHEIGHT/2 - 100;
+    Bottom_txt_position.x = WINDOWWIDTH /2 - 250;
+    Bottom_txt_position.y = WINDOWHEIGHT/2 + 200;
 
     // Initialize Random value
     time(&Unix_time);
@@ -409,6 +431,7 @@ int main(int argc, char** argv)
                 }
                 else
                 {
+                    linetxt = 0;
                     PlaySound(collision_sound);
                     score = AddPoints(score, 10);
                     Add_tetromino_to_stage(Current_tetromino_type,Current_rotation,Current_tetromino_X,Current_tetromino_Y,Current_color);

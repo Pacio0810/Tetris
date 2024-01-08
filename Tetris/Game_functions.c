@@ -1,4 +1,5 @@
 #include "Tetris.h"
+extern int linetxt;
 
 void ResetLines(int startLineY)
 {
@@ -13,9 +14,10 @@ void ResetLines(int startLineY)
             {
                 stage[offset_below] = stage[offset];
                 stage[offset] = 0;
+                linetxt = 1;
             }
         }
-    } 
+    }
 }
 
 void DeleteLines(const Sound line_sound, int *score)
